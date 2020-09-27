@@ -8,6 +8,11 @@
 
 int main(){
 
+    while(1){
+        command_prompt();   //indicator to enter your command
+
+
+    }
 
 
     return 0;
