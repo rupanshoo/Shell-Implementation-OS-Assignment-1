@@ -86,7 +86,6 @@ int main(){
         exit(1);
     }
 
-
     close(fd);
 
     return 0;
