@@ -16,7 +16,7 @@ int main(){
 
     if(fd != -1){
 
-        if(ret > 0){
+        if(ret > 0){    //parent process
             waitpid(ret, &stat, 0);
             if (WIFSIGNALED(stat)){
                 printf("Error\n");
