@@ -8,13 +8,16 @@
 
 
 void command_prompt();
-void read_command(char cmd[], char* para[]);
+void read_command(char cmd[], char* para[], char* hI[]);
 void cd(char* param[]);
-void history();
+void history(char* historyInputs[]);
 void pwd();
+void echo();
 
 
 char* parameter[20];   //to store parameters entered
+char* hist[500];  //to store history of commands entered
+int histCounter = 0;
 
 int main(){
 
@@ -23,27 +26,26 @@ int main(){
     int i=0;
 
     while(1){    //infinite loop 
-
-        for(int y=0; y<20; y++){
-            if(parameter[y]!=NULL){
-                parameter[y] = NULL;
-            }
-            printf("%s", parameter[y]);
-        }
         command_prompt();   //indicator to enter your command - to present a prompt
-        read_command(command, parameter);
+        read_command(command, parameter, hist);
 
-
+        /*
         //to check values in parameter
         for(int k=0; k<20;k++){
             printf("%s", parameter[k]);
         }
+        */
 
         
         //INTERNAL COMMANDS
             if(strcmp(command, "cd") ==0){cd(parameter);}       //cd 
             if(strcmp(command, "exit") == 0){exit(0);}         //exit 
-            if(strcmp(command, "history") == 0){history();}   //history
+            if(strcmp(command, "history") == 0){
+                //history(hist);
+                for(int k=0; k<histCounter;k++){
+            printf("%s", hist[k]);
+        }
+            }   //history
             if(strcmp(command, "pwd")==0){pwd();}            //pwd
             if(strcmp(command, "echo") ==0){echo();}
         
@@ -68,9 +70,12 @@ void pwd(){
 
 
 //prints the history of commands entered in the shell
-void history(){
-
+void history(char* historyInputs[]){
+    for(int h= 0; h< histCounter; h++){
+        printf("%s\n", historyInputs[h]);
+    }
 }
+
 
 //changes directory to path provided by user
 void cd(char *param[]){
@@ -95,19 +100,10 @@ void cd(char *param[]){
         printf("\nUnsucessful! Path not changed.\n");
     }
 
-    /*
-    //to remove all previous parameters
-    for(int x=0; x<20; x++){
-        if(param[x] != NULL){
-            param[x] = NULL;
-        }
-        //printf("%s",param[x]);
-    }
-    */
 }
 
 
-
+//to indicate that input can be given
 void command_prompt(){
     /*
     static int first = 1;
@@ -122,8 +118,8 @@ void command_prompt(){
 
 
 
-
-void read_command(char cmd[], char* para[]){
+// to take, read and breakdown the user input 
+void read_command(char cmd[], char* para[], char* hI[]){
     
     char line[1024];
     int count =0, i=0, j=0;
@@ -136,6 +132,9 @@ void read_command(char cmd[], char* para[]){
         if(c == '\n')    //to check end of the command being entered.
         {break;}
     }
+
+    hI[histCounter] = strdup(line);
+    histCounter++;
 
     /*
     for(int k=0; sizeof(k); k++){
@@ -157,12 +156,13 @@ void read_command(char cmd[], char* para[]){
 
     //the first word entered is the command
     strcpy(cmd, array[0]);
-    printf("%s\n", cmd);
+    //printf("%s\n", cmd);
 
     //rest tokens will be parameters
     for(int j=0; j<i; j++){
         para[j] = array[j];
-        printf("%s\n",para[j]);
+        //printf("%s\n",para[j]);
         para[i] = '\0';    //make the end of parameter array NULL
     }
+    memset(line, '\0', 1024);
 }
