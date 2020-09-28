@@ -72,8 +72,10 @@ int main(){
             }
             for(int i=0;i<400;i++){
                 int sum=atoi(arr[i][2])+atoi(arr[i][3])+atoi(arr[i][4])+atoi(arr[i][5]);
+                int average = sum/4;
                 printf("%s - %s - %s - %s - %s -Avg: " , arr[i][0], arr[i][2], arr[i][3], arr[i][4], arr[i][5]);
-                printf("%d\n",sum/4);
+                //write(STDOUT_FILENO, );
+                write(STDOUT_FILENO, &average, sizeof(average));
             }
             sleep(2);
             exit(EXIT_SUCCESS);
