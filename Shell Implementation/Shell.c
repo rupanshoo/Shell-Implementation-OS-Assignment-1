@@ -44,7 +44,8 @@ int main(){
             if(strcmp(command, "cd") ==0){cd(parameter);}       //cd 
             if(strcmp(command, "exit") == 0){exit(0);}         //exit 
             if(strcmp(command, "history") == 0){history();}   //history
-            if(strcmp(command, "pwd")==0) {pwd();}           //pwd
+            if(strcmp(command, "pwd")==0){pwd();}            //pwd
+            if(strcmp(command, "echo") ==0){echo();}
         
     }
 
@@ -52,15 +53,26 @@ int main(){
     return 0;
 }
 
-void pwd(){
+void echo(){
 
 }
 
+
+//prints the path of current working directory
+void pwd(){
+    char cwd[1024];
+    getcwd(cwd,sizeof(cwd));   //gets current working directory path and saves it in cwd
+    printf("%s", "\nPATH INFO OF WORKING DIRECTORY: ");
+    printf("%s\n", cwd);
+}
+
+
+//prints the history of commands entered in the shell
 void history(){
 
 }
 
-
+//changes directory to path provided by user
 void cd(char *param[]){
     char path[1000];
     strcpy(path, param[1]);
