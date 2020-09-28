@@ -10,67 +10,53 @@
 void command_prompt();
 void read_command(char cmd[], char* para[]);
 void cd();
+void history();
 
 
 int main(){
 
     char cmd[100];
-    char command_Input[100];
+    char command[100];
     char* parameter[20];   //to store parameters entered
-    int stat;
+    //int stat;
 
-    int ret = fork();
+    //int ret = fork();
 
-    char* envp[] = {(char*) "PATH=/bin" , 0};   //defines environment varibles - we assume that all commands are in the directories/bin
+    //char* envp[] = {(char*) "PATH=/bin" , 0};   //defines environment varibles - we assume that all commands are in the directories/bin
 
     while(1){    //infinite loop 
         command_prompt();   //indicator to enter your command - to present a prompt
-        read_command(command_Input, parameter);
-
-        if(ret > 0){   //parent process
-            waitpid(ret, &stat, 0);
-            if (WIFSIGNALED(stat)){
-                printf("Error\n");
-            }
-            else if (WEXITSTATUS(stat)) {
-                printf("Exited Normally\n");
-            }
-
-        }
-
-
-        if(ret == 0){   //child process
-            strcpy(cmd, "/bin/");
-            strcat(cmd, command_Input);
-            execve(cmd, parameter, envp);   //to execute the command
-
-            sleep(2);
-        }
-
-        if(strcmp(command_Input, "exit") == 0){break;}   //exit internal command
-        if(strcmp(command_Input, "cd") ==0){
-            cd();
-        }
+        read_command(command, parameter);
+        
+        //INTERNAL COMMANDS
+            if(strcmp(command, "cd") ==0){cd();}                //cd 
+            if(strcmp(command, "exit") == 0){exit(0);}         //exit 
+            if(strcmp(command, "history") == 0){history();}   //history
+        
     }
 
 
     return 0;
 }
 
+void history(){
+
+}
+
 
 void cd(){
-    
+    printf("cd executed\n");
 }
 
 
 void command_prompt(){
-    static int first = 1;
+    /*static int first = 1;
     if(first){   //on opening the shell for the first time, clear the screen
         const char* CLEAR_SCREEN_ANSI = "\e[1;1H\e[2J"; 
         write(STDOUT_FILENO, CLEAR_SCREEN_ANSI, 12);   //stdout_fileno - file descriptor of system - file no. of stdout = 1, belongs to unistd.h
         first = 0;
     }
-
+*/
     printf("#");
 }
 
@@ -82,7 +68,6 @@ void read_command(char cmd[], char* para[]){
     char line[1024];
     int count =0, i=0, j=0;
     char* array[100], *pch;
-    char delim[] ="\n"; 
 
     //reading the input line
     for( ;; ){
@@ -92,16 +77,16 @@ void read_command(char cmd[], char* para[]){
         {break;}
     }
 
-    if(count == 1){   //in case of only one enter
+    if(count == 1){   //in case of only one character entered
         return;
     }
 
     //for more than one enters
-    pch = strtok(line, delim);
+    pch = strtok(line, " \n");
 
     while( pch!= NULL){
         array[i++] = strdup(pch);   //to save a duplicate of the token in array
-        pch = strtok(NULL, delim);
+        pch = strtok(NULL, " \n");
     }
 
     //the first word entered is the command
