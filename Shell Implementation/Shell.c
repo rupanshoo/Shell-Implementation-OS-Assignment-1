@@ -10,7 +10,6 @@
 void command_prompt();
 void read_command(char cmd[], char* para[], char* hI[]);
 void cd(char* param[]);
-void history(char* historyInputs[]);
 void pwd();
 void echo();
 
@@ -40,14 +39,13 @@ int main(){
         //INTERNAL COMMANDS
             if(strcmp(command, "cd") ==0){cd(parameter);}       //cd 
             if(strcmp(command, "exit") == 0){exit(0);}         //exit 
-            if(strcmp(command, "history") == 0){
-                //history(hist);
+            if(strcmp(command, "history") == 0){              //history
                 for(int k=0; k<histCounter;k++){
-            printf("%s", hist[k]);
-        }
-            }   //history
+                printf("%s", hist[k]);
+                }
+            }  
             if(strcmp(command, "pwd")==0){pwd();}            //pwd
-            if(strcmp(command, "echo") ==0){echo();}
+            if(strcmp(command, "echo") ==0){echo();}        //echo 
         
     }
 
@@ -67,15 +65,6 @@ void pwd(){
     printf("%s", "\nPATH INFO OF WORKING DIRECTORY: ");
     printf("%s\n", cwd);
 }
-
-
-//prints the history of commands entered in the shell
-void history(char* historyInputs[]){
-    for(int h= 0; h< histCounter; h++){
-        printf("%s\n", historyInputs[h]);
-    }
-}
-
 
 //changes directory to path provided by user
 void cd(char *param[]){
@@ -164,5 +153,5 @@ void read_command(char cmd[], char* para[], char* hI[]){
         //printf("%s\n",para[j]);
         para[i] = '\0';    //make the end of parameter array NULL
     }
-    memset(line, '\0', 1024);
+    memset(line, '\0', 1024);   //changes all the characters in the line array to null
 }
