@@ -45,7 +45,11 @@ int main(){
                 }
             }  
             if(strcmp(command, "pwd")==0){pwd();}            //pwd
-            if(strcmp(command, "echo") ==0){echo();}        //echo 
+            if(strcmp(command, "echo") ==0){echo(parameter);}        //echo 
+
+            for(int p=0; p<20; p++){
+                parameter[p] = '\0';
+            }
         
     }
 
@@ -53,8 +57,12 @@ int main(){
     return 0;
 }
 
-void echo(){
-
+void echo(char* p[]){
+    for(int q=1; q<20; q++){
+        if(p[q]!= NULL){
+            printf("%s\n",p[q]);
+        }
+    }
 }
 
 
@@ -66,6 +74,7 @@ void pwd(){
     printf("%s\n", cwd);
 }
 
+
 //changes directory to path provided by user
 void cd(char *param[]){
     char path[1000];
@@ -75,20 +84,32 @@ void cd(char *param[]){
     char curr[256];
     getcwd(curr, sizeof(curr));
 
-
-    //to build the correct format for new path
-    strcat(curr, "/");   
-    strcat(curr, path);
-    printf("%s", curr);
-
-    int ret = chdir(curr);  //change current directory to new path provided
-    if(ret == 0){
-        printf("\nPath Changed Successfully!\n");
+    if(strcmp(param[1], "..")==0){
+        int r = chdir("..");
+        if(r == 0){
+            printf("\nPath Changed Successfully!\n");
+        }
+        else{
+            printf("\nUnsucessful! Path not changed.\n");
+        }
     }
+
     else{
-        printf("\nUnsucessful! Path not changed.\n");
-    }
 
+        //to build the correct format for new path
+        strcat(curr, "/");   
+        strcat(curr, path);
+        printf("%s", curr);
+
+        int ret = chdir(curr);  //change current directory to new path provided
+        if(ret == 0){
+            printf("\nPath Changed Successfully!\n");
+        }
+        else{
+            printf("\nUnsucessful! Path not changed.\n");
+        }
+
+    }
 }
 
 
@@ -123,13 +144,8 @@ void read_command(char cmd[], char* para[], char* hI[]){
     }
 
     hI[histCounter] = strdup(line);
+    hI[histCounter+1] = NULL;
     histCounter++;
-
-    /*
-    for(int k=0; sizeof(k); k++){
-        printf("%c", line[k]);
-    }
-    */
 
     if(count == 1){   //in case of only one character entered
         return;
@@ -151,7 +167,7 @@ void read_command(char cmd[], char* para[], char* hI[]){
     for(int j=0; j<i; j++){
         para[j] = array[j];
         //printf("%s\n",para[j]);
-        para[i] = '\0';    //make the end of parameter array NULL
     }
+    para[i] = NULL;    //make the end of parameter array NULL
     memset(line, '\0', 1024);   //changes all the characters in the line array to null
 }
