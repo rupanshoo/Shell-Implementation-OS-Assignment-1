@@ -23,10 +23,10 @@ int main(int argc, char *argv[]){
     }
 
     while((content = readdir(dir)) != NULL){
-        if(strcmp(argv[1],"-a")==0){
+        if(strcmp(argv[1],"-a")==0){    //to print hidden files too
             printf(">> %s\n", content->d_name);
         }
-        else{
+        else{   // normal print 
             if(content->d_name[0] == '.') continue;
             printf(">> %s\n", content->d_name);
         }
