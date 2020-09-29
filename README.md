@@ -11,7 +11,7 @@ Internal Calls implemented-
 - exit
 
 External Calls implemented-
-- ls
+- ls --> -a and -F
 - cat
 - date
 - rm
