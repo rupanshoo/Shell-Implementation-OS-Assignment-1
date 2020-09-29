@@ -5,7 +5,6 @@ Implementing Internal and External System Calls:
 Internal Calls implemented-
 - cd
   --> ..
-  --> 
 - history
 - pwd
 - echo
