@@ -16,3 +16,8 @@ External Calls implemented-
 - date
 - rm
 - mkdir
+
+System calls used:
+- fork(): to help in execution of external commands
+- execv() : to execute binary files of external commands
+- waitpid() : to make the parent process wait until the child process is finished.
