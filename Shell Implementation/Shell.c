@@ -23,7 +23,6 @@ int main(){
     char cmd[200];
     char command[200];
     int i=0;
-    int ret;
     int status;
 
     while(1){    //infinite loop 
@@ -51,7 +50,7 @@ int main(){
 
         //EXTERNAL COMMANDS
             else if(strcmp(command, "ls") == 0){                         //ls (-a and -F)
-                ret = fork();
+                int ret = fork();
 
                 if(ret > 0){   //parent process                                
                     waitpid(ret, &status, 0);
@@ -78,7 +77,23 @@ int main(){
                 
             }
 
-            else if(strcmp(command, "rm") == 0){
+            else if(strcmp(command, "rm") == 0){                 //rm (-i and -d)
+                int ret = fork();
+
+                if(ret > 0){   //parent process                                
+                    waitpid(ret, &status, 0);
+                    printf("\nBack to parent");
+                }
+                if(ret == 0){  //child process
+                    //command has the name of the file to be executed
+                    // parameter has parameters entered by the user with the program
+
+                    char file_name[] = "./";
+                    strcat(file_name, command);
+                    
+                    execv(file_name, parameter);
+                    sleep(2);
+                }
                 
             }
 
