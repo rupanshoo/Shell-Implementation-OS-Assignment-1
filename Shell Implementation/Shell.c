@@ -50,10 +50,10 @@ int main(){
             else if(strcmp(command, "echo") ==0){echo(parameter);}        //echo 
 
         //EXTERNAL COMMANDS
-            else if(strcmp(command, "ls") == 0){                         //ls -a and -F
+            else if(strcmp(command, "ls") == 0){                         //ls (-a and -F)
                 ret = fork();
 
-                if(ret > 0){   //parent process
+                if(ret > 0){   //parent process                                
                     waitpid(ret, &status, 0);
                     printf("\nBack to parent");
                 }
@@ -67,6 +67,27 @@ int main(){
                     execv(file_name, parameter);
                     sleep(2);
                 }
+            }
+
+
+            else if(strcmp(command, "cat") == 0){
+
+            }
+
+            else if(strcmp(command, "date") == 0){
+                
+            }
+
+            else if(strcmp(command, "rm") == 0){
+                
+            }
+
+            else if(strcmp(command, "mkdir") == 0){
+                
+            }
+
+            else{    //invalid command entered 
+                printf("\nERROR!! COMMAND NOT FOUND\n");
             }
 
             
