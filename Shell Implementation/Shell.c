@@ -22,10 +22,25 @@ int main(){
 
     char cmd[200];
     char command[200];
+    int ret_ls, ret_rm;
     int i=0;
     int status;
 
+    /*
+    char *e;
+    e= getenv("myEnv");
+    //printf("e = %s\n",e);
+    int ret = putenv("myEnv=/usr/home/documents/Operating Systems/Assignment 1/");
+    if(ret == -1){
+        perror("putenv");
+        printf("%d",ret);
+    }
+    char *envp[] = {(char*) "myEnv=/Shell Implementation", 0};
+    */
+
+
     while(1){    //infinite loop 
+
         command_prompt();   //indicator to enter your command - to present a prompt
         read_command(command, parameter, hist);
 
@@ -50,21 +65,30 @@ int main(){
 
         //EXTERNAL COMMANDS
             else if(strcmp(command, "ls") == 0){                         //ls (-a and -F)
-                int ret = fork();
+                ret_ls = fork();
 
-                if(ret > 0){   //parent process                                
-                    waitpid(ret, &status, 0);
+                if(ret_ls > 0){   //parent process                                
+                    waitpid(ret_ls, &status, 0);
                     printf("\nBack to parent");
                 }
-                if(ret == 0){  //child process
+                if(ret_ls == 0){  //child process
+                    printf("Welcome to child\n");
                     //command has the name of the file to be executed
                     // parameter has parameters entered by the user with the program
 
                     char file_name[] = "./";
                     strcat(file_name, command);
-                    
                     execv(file_name, parameter);
+
+                    //strcpy(cmd, "/Shell Implementation/");
+                    //strcat(cmd, command);
+                    //printf("%s", command);
+                    //execve(command, parameter, envp);
+                    
                     sleep(2);
+                }
+                if(ret_ls<0){
+                    printf("Can't fork");
                 }
             }
 
@@ -78,13 +102,13 @@ int main(){
             }
 
             else if(strcmp(command, "rm") == 0){                 //rm (-i and -d)
-                int ret = fork();
+                ret_rm = fork();
 
-                if(ret > 0){   //parent process                                
-                    waitpid(ret, &status, 0);
+                if(ret_rm > 0){   //parent process                                
+                    waitpid(ret_rm, &status, 0);
                     printf("\nBack to parent");
                 }
-                if(ret == 0){  //child process
+                if(ret_rm == 0){  //child process
                     //command has the name of the file to be executed
                     // parameter has parameters entered by the user with the program
 
@@ -96,6 +120,7 @@ int main(){
                 }
                 
             }
+            
 
             else if(strcmp(command, "mkdir") == 0){
                 

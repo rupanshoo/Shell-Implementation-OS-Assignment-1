@@ -8,7 +8,6 @@
 #include <string.h>
 
 
-
 int main(int argc, char *argv[]){
     DIR *dir;   //make a directory
     struct dirent *content;
