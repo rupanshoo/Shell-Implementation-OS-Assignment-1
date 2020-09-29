@@ -23,6 +23,8 @@ int main(){
     char cmd[200];
     char command[200];
     int i=0;
+    int ret;
+    int status;
 
     while(1){    //infinite loop 
         command_prompt();   //indicator to enter your command - to present a prompt
@@ -37,19 +39,42 @@ int main(){
 
         
         //INTERNAL COMMANDS
-            if(strcmp(command, "cd") ==0){cd(parameter);}       //cd 
-            if(strcmp(command, "exit") == 0){exit(0);}         //exit 
-            if(strcmp(command, "history") == 0){              //history
+            if(strcmp(command, "cd") ==0){cd(parameter);}            //cd 
+            else if(strcmp(command, "exit") == 0){exit(0);}         //exit 
+            else if(strcmp(command, "history") == 0){              //history
                 for(int k=0; k<histCounter;k++){
                 printf("%s", hist[k]);
                 }
             }  
-            if(strcmp(command, "pwd")==0){pwd();}            //pwd
-            if(strcmp(command, "echo") ==0){echo(parameter);}        //echo 
+            else if(strcmp(command, "pwd")==0){pwd();}                     //pwd
+            else if(strcmp(command, "echo") ==0){echo(parameter);}        //echo 
 
-            for(int p=0; p<20; p++){
-                parameter[p] = '\0';
+        //EXTERNAL COMMANDS
+            else if(strcmp(command, "ls") == 0){
+                ret = fork();
+
+                if(ret > 0){   //parent process
+                    waitpid(ret, &status, 0);
+                    printf("\nBack to parent");
+
+
+                }
+                if(ret == 0){  //child process
+                    //command has the name of the file to be executed
+                    // parameter has parameters entered by the user with the program
+
+                    char file_name[] = "./";
+                    strcat(file_name, command);
+                    
+                    execv(file_name, parameter);
+                    sleep(2);
+                }
             }
+
+            
+        for(int p=0; p<20; p++){
+            parameter[p] = '\0';
+        }
         
     }
 
