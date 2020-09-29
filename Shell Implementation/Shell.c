@@ -50,14 +50,12 @@ int main(){
             else if(strcmp(command, "echo") ==0){echo(parameter);}        //echo 
 
         //EXTERNAL COMMANDS
-            else if(strcmp(command, "ls") == 0){
+            else if(strcmp(command, "ls") == 0){                         //ls -a and -F
                 ret = fork();
 
                 if(ret > 0){   //parent process
                     waitpid(ret, &status, 0);
                     printf("\nBack to parent");
-
-
                 }
                 if(ret == 0){  //child process
                     //command has the name of the file to be executed
@@ -70,6 +68,8 @@ int main(){
                     sleep(2);
                 }
             }
+
+            
 
             
         for(int p=0; p<20; p++){
