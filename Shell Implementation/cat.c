@@ -45,6 +45,8 @@ int main(int argc, char* argv[]){
         }
 
         printf("%d",lineCount++);  //for line 1
+        
+
         while((chr = getc(fileptr))!= EOF){
             if(last)
                 putchar(last);
@@ -52,9 +54,12 @@ int main(int argc, char* argv[]){
                 printf("%d",lineCount++);
             last = chr;
         }
+
         putchar(last);
+
         if(last != '\n')
             putchar('\n');
+            
         if(fileptr!=stdin)
             fclose(fileptr);
         
