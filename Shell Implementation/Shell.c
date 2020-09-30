@@ -188,7 +188,7 @@ void cd(char *param[]){
     getcwd(curr, sizeof(curr));
 
     if(strcmp(param[1], "..")==0){
-        int r = chdir("..");
+        int r = chdir("..");  //to go to previous directory
         if(r == 0){
             printf("\nPath Changed Successfully!\n");
         }
