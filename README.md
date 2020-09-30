@@ -18,7 +18,9 @@ External Calls implemented-
 - rm --> -i and -d
 >> -i : takes a confirmation before removing the file\
 >> -d : to remove an empty directory 
-- mkdir
+- mkdir --> -m777 and -v
+>> -v : makes multiple directories in one go\
+>> -m777: makes a directory whose permissions are set to read-write-execute for all users
 
 System calls and functions used:
 - fork(): to help in execution of external commands
@@ -40,3 +42,4 @@ System calls and functions used:
 - closedir() : to close directory
 - remove() : to remove a file 
 - rmdir() : to remove an empty directory
+- mkdir() : takes directory name and permission as argument and created directory
