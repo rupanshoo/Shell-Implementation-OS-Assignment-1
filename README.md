@@ -3,8 +3,7 @@ System call and building a shell
 Implementing Internal and External System Calls:
 
 Internal Calls implemented-
-- cd
-  --> ..
+- cd --> ..
 - history
 - pwd
 - echo
@@ -12,9 +11,13 @@ Internal Calls implemented-
 
 External Calls implemented-
 - ls --> -a and -F
+>> -a : shows the hidden files too
+>> -F : shows only directories with '/' at the end of their names
 - cat
 - date
-- rm
+- rm --> -i and -d
+>> -i : takes a confirmation before removing the file
+>> -d : to remove an empty directory 
 - mkdir
 
 System calls and functions used:
@@ -35,3 +38,5 @@ System calls and functions used:
 - stat() : returns information about a file.
 - S_ISDIR() : to check if it's a directory or not
 - closedir() : to close directory
+- remove() : to remove a file 
+- rmdir() : to remove an empty directory
