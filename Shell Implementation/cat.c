@@ -10,35 +10,55 @@
 
 int main(int argc, char* argv[]){
 
-    int argvCnt = 1;
+    if(argv[1][0] == '>'){
+        char *token = strtok(argv[1],">");
+        char* newFileName = token;
 
-    while(argv[argvCnt] != NULL){
-        FILE* p;
-        char file_contents[Buffer_Size];
-        int totalRead =0;
 
-        p = fopen(argv[argvCnt], "r");  //open in read mode
 
-        if(p==NULL){
+        FILE* pt;
+        pt = fopen(newFileName, "w");
+        if(pt == NULL){
             printf("Unable to open file.\n");
             return 0;
         }
+        else{
+            printf("Successfully created file!\n");
+        }
+    }
 
-        while (fgets(file_contents, Buffer_Size,p)!= NULL)
-        {
-            totalRead = strlen(file_contents);
+    else{
 
-            if(file_contents[totalRead-1] == '\n'){
-                file_contents[totalRead-1] = '\0';
+        int argvCnt = 1;
+
+        while(argv[argvCnt] != NULL){
+            FILE* p;
+            char file_contents[Buffer_Size];
+            int totalRead =0;
+
+            p = fopen(argv[argvCnt], "r");  //open in read mode
+
+            if(p==NULL){
+                printf("Unable to open file.\n");
+                return 0;
             }
 
-            //file_contents[totalRead-1] = file_contents[totalRead-1] == '\n' ? '\0' : file_contents[totalRead-1];  -- shorter for above if condn
-            printf("%s\n", file_contents);
+            while (fgets(file_contents, Buffer_Size,p)!= NULL)
+            {
+                totalRead = strlen(file_contents);
+
+                if(file_contents[totalRead-1] == '\n'){
+                    file_contents[totalRead-1] = '\0';
+                }
+
+                //file_contents[totalRead-1] = file_contents[totalRead-1] == '\n' ? '\0' : file_contents[totalRead-1];  -- shorter for above if condn
+                printf("%s\n", file_contents);
+            }
+
+            fclose(p);
+
+            argvCnt ++;
         }
-
-        fclose(p);
-
-        argvCnt ++;
     }
     
     //printf("in cat");
