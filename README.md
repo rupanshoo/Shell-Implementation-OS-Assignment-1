@@ -15,6 +15,8 @@ External Calls implemented-
 >> -F : shows only directories with '/' at the end of their names
 - cat
 - date
+>> -u : to display universal time\
+>> -s : to change system time
 - rm --> -i and -d
 >> -i : takes a confirmation before removing the file\
 >> -d : to remove an empty directory 
@@ -43,3 +45,5 @@ System calls and functions used:
 - remove() : to remove a file 
 - rmdir() : to remove an empty directory
 - mkdir() : takes directory name and permission as argument and created directory
+- gmtime() : to get universal time (UTC)
+- ctime() : to get current date and time
