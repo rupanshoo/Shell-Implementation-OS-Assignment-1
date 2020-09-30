@@ -11,12 +11,12 @@ Internal Calls implemented-
 
 External Calls implemented-
 - ls --> -a and -F
->> -a : shows the hidden files too
+>> -a : shows the hidden files too\
 >> -F : shows only directories with '/' at the end of their names
 - cat
 - date
 - rm --> -i and -d
->> -i : takes a confirmation before removing the file
+>> -i : takes a confirmation before removing the file\
 >> -d : to remove an empty directory 
 - mkdir
 
