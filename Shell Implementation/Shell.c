@@ -22,7 +22,7 @@ int main(){
 
     char cmd[200];
     char command[200];
-    int ret_ls, ret_rm;
+    int ret_ls, ret_rm, ret_mkdir, ret_cat, ret_date;
     int i=0;
     int status;
 
@@ -101,6 +101,7 @@ int main(){
                 
             }
 
+
             else if(strcmp(command, "rm") == 0){                 //rm (-i and -d)
                 ret_rm = fork();
 
@@ -122,9 +123,25 @@ int main(){
             }
             
 
-            else if(strcmp(command, "mkdir") == 0){
-                
+            else if(strcmp(command, "mkdir") == 0){   //mkdir
+                ret_mkdir = fork();
+
+                if(ret_mkdir > 0){   //parent process                                
+                    waitpid(ret_mkdir, &status, 0);
+                    printf("\nBack to parent");
+                }
+                if(ret_mkdir == 0){  //child process
+                    //command has the name of the file to be executed
+                    // parameter has parameters entered by the user with the program
+
+                    char file_name[] = "./";
+                    strcat(file_name, "mkdir");
+                    execv(file_name, parameter);
+                    sleep(2);
+                }
             }
+
+
 
             else{    //invalid command entered 
                 printf("\nERROR!! COMMAND NOT FOUND\n");
