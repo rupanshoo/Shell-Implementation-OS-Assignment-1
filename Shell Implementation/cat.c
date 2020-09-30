@@ -31,8 +31,34 @@ int main(int argc, char* argv[]){
         fclose(pt);
     }
 
-    else if(strcmp(argv[1], "") == 0){
+    else if(strcmp(argv[1], "-n") == 0){
+        FILE* fileptr;
+        int lineCount = 1; //line counter
+        char file[Buffer_Size];
+        int chr, last = 0;
+
+        fileptr = fopen(argv[2], "r");
+
+        if(fileptr==NULL){
+                printf("Unable to open file.\n");
+                return 0;
+        }
+
+        printf("%d",lineCount++);  //for line 1
+        while((chr = getc(fileptr))!= EOF){
+            if(last)
+                putchar(last);
+            if(last == '\n')
+                printf("%d",lineCount++);
+            last = chr;
+        }
+        putchar(last);
+        if(last != '\n')
+            putchar('\n');
+        if(fileptr!=stdin)
+            fclose(fileptr);
         
+        return 0;
     }
 
     else{
