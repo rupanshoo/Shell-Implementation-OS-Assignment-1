@@ -16,7 +16,7 @@ External Calls implemented-
 >> -a : shows the hidden files too\
 >> -F : shows only directories with '/' at the end of their names
 - cat --> > and -n
->> > : to create a new file and all contents to it\
+>> '>' : to create a new file and all contents to it\
 >> -n : to display line numbers in front of every new line of file.
 - date
 >> -u : to display universal time\
