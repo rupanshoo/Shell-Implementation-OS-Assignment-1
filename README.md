@@ -3,7 +3,9 @@ System call and building a shell
 Implementing Internal and External System Calls:
 
 Internal Calls implemented-
-- cd --> ..
+- cd --> .. and .
+>> .. : to go to previous directory\
+>> . : to stay at current directory
 - history
 - pwd
 - echo
