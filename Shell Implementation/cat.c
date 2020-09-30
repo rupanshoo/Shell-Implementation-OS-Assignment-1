@@ -24,13 +24,15 @@ int main(int argc, char* argv[]){
             return 0;
         }
 
-        //printf("File opened successfully! Reading file contents line by line...\n");
-
         while (fgets(file_contents, Buffer_Size,p)!= NULL)
         {
             totalRead = strlen(file_contents);
 
-            file_contents[totalRead-1] = file_contents[totalRead-1] == '\n' ? '\0' : file_contents[totalRead-1];
+            if(file_contents[totalRead-1] == '\n'){
+                file_contents[totalRead-1] = '\0';
+            }
+
+            //file_contents[totalRead-1] = file_contents[totalRead-1] == '\n' ? '\0' : file_contents[totalRead-1];  -- shorter for above if condn
             printf("%s\n", file_contents);
         }
 
