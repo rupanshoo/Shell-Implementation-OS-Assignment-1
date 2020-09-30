@@ -51,6 +51,8 @@ int main(){
         }
         */
 
+       
+
         
         //INTERNAL COMMANDS
             if(strcmp(command, "cd") ==0){cd(parameter);}            //cd 
@@ -62,6 +64,10 @@ int main(){
             }  
             else if(strcmp(command, "pwd")==0){pwd();}                     //pwd
             else if(strcmp(command, "echo") ==0){echo(parameter);}        //echo 
+
+
+
+
 
         //EXTERNAL COMMANDS
             else if(strcmp(command, "ls") == 0){                         //ls (-a and -F)
