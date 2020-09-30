@@ -13,7 +13,7 @@ int main(int argc, char* argv[]){
     if(argv[1][0] == '>'){
         char *token = strtok(argv[1],">");
         char* newFileName = token;
-
+        char writeInNewFile[Buffer_Size];
 
 
         FILE* pt;
@@ -23,8 +23,16 @@ int main(int argc, char* argv[]){
             return 0;
         }
         else{
-            printf("Successfully created file!\n");
+            printf("Successfully created file!\nEnter contents to be added to file: \n");
+            fgets(writeInNewFile, Buffer_Size, stdin);
+            fputs(writeInNewFile, pt);
         }
+
+        fclose(pt);
+    }
+
+    else if(strcmp(argv[1], "") == 0){
+        
     }
 
     else{
