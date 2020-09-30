@@ -99,8 +99,23 @@ int main(){
             }
 
 
-            else if(strcmp(command, "cat") == 0){
+            else if(strcmp(command, "cat") == 0){   //cat
+                ret_cat = fork();
 
+                if(ret_cat >0){  //parent process                                
+                    waitpid(ret_cat, &status, 0);
+                    printf("\nBack to parent");
+                }
+                if(ret_cat == 0){  //child process
+                    //command has the name of the file to be executed
+                    // parameter has parameters entered by the user with the program
+
+                    char file_name[] = "./";
+                    strcat(file_name, "cat");
+                    
+                    execv(file_name, parameter);
+                    sleep(2);
+                }
             }
 
 
