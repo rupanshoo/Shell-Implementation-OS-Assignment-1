@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 int main(int argc, char *argv[]){
     char prompt;
@@ -16,9 +17,20 @@ int main(int argc, char *argv[]){
             return 0;
         }
     }
-
-    remove(argv[1]);
-    printf("File removed successfully!");
+    else if(strcmp(argv[1], "-d")==0){
+        int status;
+        status = rmdir(argv[2]);
+        if(status == 0){
+            printf("Successfully removed directory!\n");
+        }
+        if(status == -1){
+            printf("Unsuccessful!! Directory was not removed.\n");
+        }
+    }
+    else{
+        remove(argv[1]);
+        printf("File removed successfully!");
+    }
     
     return 0;
 }
