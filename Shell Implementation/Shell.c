@@ -97,9 +97,31 @@ int main(){
 
             }
 
-            else if(strcmp(command, "date") == 0){
+
+
+
+            else if(strcmp(command, "date") == 0){    //date
+                ret_date = fork();
+
+                if(ret_date >0){  //parent process                                
+                    waitpid(ret_date, &status, 0);
+                    printf("\nBack to parent");
+                }
+                if(ret_date == 0){  //child process
+                    //command has the name of the file to be executed
+                    // parameter has parameters entered by the user with the program
+
+                    char file_name[] = "./";
+                    strcat(file_name, "date");
+                    
+                    execv(file_name, parameter);
+                    sleep(2);
+                }
                 
             }
+
+
+
 
 
             else if(strcmp(command, "rm") == 0){                 //rm (-i and -d)
@@ -123,7 +145,7 @@ int main(){
             }
             
 
-            else if(strcmp(command, "mkdir") == 0){   //mkdir
+            else if(strcmp(command, "mkdir") == 0){   //mkdir (-v and -m777)
                 ret_mkdir = fork();
 
                 if(ret_mkdir > 0){   //parent process                                
