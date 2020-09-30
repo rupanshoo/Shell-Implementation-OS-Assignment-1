@@ -10,7 +10,7 @@
 void command_prompt();
 void read_command(char cmd[], char* para[], char* hI[]);
 void cd(char* param[]);
-void pwd();
+void pwd(char* par[]);
 void echo();
 
 
@@ -32,7 +32,9 @@ int main(){
         command_prompt();   //indicator to enter your command - to present a prompt
         read_command(command, parameter, hist);
 
-    
+
+
+
         //INTERNAL COMMANDS
             if(strcmp(command, "cd") ==0){cd(parameter);}            //cd 
             else if(strcmp(command, "exit") == 0){exit(0);}         //exit 
@@ -41,7 +43,7 @@ int main(){
                 printf("%s", hist[k]);
                 }
             }  
-            else if(strcmp(command, "pwd")==0){pwd();}                     //pwd
+            else if(strcmp(command, "pwd")==0){pwd(parameter);}                     //pwd
             else if(strcmp(command, "echo") ==0){echo(parameter);}        //echo 
 
 
@@ -54,28 +56,24 @@ int main(){
 
                 if(ret_ls > 0){   //parent process                                
                     waitpid(ret_ls, &status, 0);
-                    printf("\nBack to parent");
+                    //printf("\nBack to parent");
                 }
                 if(ret_ls == 0){  //child process
-                    printf("Welcome to child\n");
+                    //printf("Welcome to child\n");
                     //command has the name of the file to be executed
                     // parameter has parameters entered by the user with the program
 
                     char file_name[] = "./";
                     strcat(file_name, command);
                     execv(file_name, parameter);
-
-                    //strcpy(cmd, "/Shell Implementation/");
-                    //strcat(cmd, command);
-                    //printf("%s", command);
-                    //execve(command, parameter, envp);
                     
                     sleep(2);
                 }
                 if(ret_ls<0){
-                    printf("Can't fork");
+                    printf("Can't fork\n");
                 }
             }
+
 
 
             else if(strcmp(command, "cat") == 0){   //cat
@@ -83,7 +81,7 @@ int main(){
 
                 if(ret_cat >0){  //parent process                                
                     waitpid(ret_cat, &status, 0);
-                    printf("\nBack to parent");
+                    //printf("\nBack to parent");
                 }
                 if(ret_cat == 0){  //child process
                     //command has the name of the file to be executed
@@ -94,6 +92,9 @@ int main(){
                     
                     execv(file_name, parameter);
                     sleep(2);
+                }
+                if(ret_cat<0){
+                    printf("Can't fork");
                 }
             }
 
@@ -113,9 +114,11 @@ int main(){
 
                     char file_name[] = "./";
                     strcat(file_name, "date");
-                    
                     execv(file_name, parameter);
                     sleep(2);
+                }
+                if(ret_date<0){
+                    printf("Can't fork");
                 }
                 
             }
@@ -141,6 +144,9 @@ int main(){
                     execv(file_name, parameter);
                     sleep(2);
                 }
+                if(ret_rm<0){
+                    printf("Can't fork");
+                }
                 
             }
             
@@ -160,6 +166,9 @@ int main(){
                     strcat(file_name, "mkdir");
                     execv(file_name, parameter);
                     sleep(2);
+                }
+                if(ret_mkdir<0){
+                    printf("Can't fork");
                 }
             }
 
@@ -182,21 +191,29 @@ int main(){
     return 0;
 }
 
+//prints whatever is entered after the keyword echo
 void echo(char* p[]){
+   
     for(int q=1; q<20; q++){
         if(p[q]!= NULL){
             printf("%s\n",p[q]);
         }
     }
+
 }
 
 
 //prints the path of current working directory
-void pwd(){
-    char cwd[1024];
-    getcwd(cwd,sizeof(cwd));   //gets current working directory path and saves it in cwd
-    printf("%s", "\nPATH INFO OF WORKING DIRECTORY: ");
-    printf("%s\n", cwd);
+void pwd(char* par[]){
+    if(par[1] != NULL){
+        printf("Can't find %s! Try again", par[1]);
+    }
+    else{
+        char cwd[1024];
+        getcwd(cwd,sizeof(cwd));   //gets current working directory path and saves it in cwd
+        printf("%s", "\nPATH INFO OF WORKING DIRECTORY: ");
+        printf("%s\n", cwd);
+    }
 }
 
 
@@ -244,14 +261,6 @@ void cd(char *param[]){
 
 //to indicate that input can be given
 void command_prompt(){
-    /*
-    static int first = 1;
-    if(first){   //on opening the shell for the first time, clear the screen
-        const char* CLEAR_SCREEN_ANSI = "\e[1;1H\e[2J"; 
-        write(STDOUT_FILENO, CLEAR_SCREEN_ANSI, 12);   //stdout_fileno - file descriptor of system - file no. of stdout = 1, belongs to unistd.h
-        first = 0;
-    }
-    */
     printf("\n~~#");
 }
 

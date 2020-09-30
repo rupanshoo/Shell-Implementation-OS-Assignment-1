@@ -22,27 +22,40 @@ int main(int argc, char *argv[]){
     }
 
     while((content = readdir(dir)) != NULL){
-        if(strcmp(argv[1],"-a")==0){    //to print hidden files too
-            printf(">> %s\n", content->d_name);
-        }
-        else if(strcmp(argv[1], "-F") == 0){
+        if(argv[1][0] >=0 && argv[1][0]<=127 ){
+            if(strcmp(argv[1],"-a")==0){    //to print hidden files too
+                printf(">> %s\n", content->d_name);
+            }
+            else if(strcmp(argv[1], "-F") == 0){
             
-            if(stat(content->d_name, &sMetaData) == -1){
-                printf("Error with stat!!");
-                return 0;
+                if(stat(content->d_name, &sMetaData) == -1){
+                    printf("Error with stat!!");
+                    return 0;
+                }
+
+                else{
+                    if(S_ISDIR(sMetaData.st_mode)){
+                        if(content->d_name[0] == '.') continue;
+                        printf(">> %s/\n", content->d_name);
+                    }
+                }
             }
 
             else{
-                if(S_ISDIR(sMetaData.st_mode)){
-                    if(content->d_name[0] == '.') continue;
-                    printf(">> %s/\n", content->d_name);
-                }
+                printf("Enter correct flag!!");
+                return 0;
             }
+
         }
+
         else{   // normal print 
             if(content->d_name[0] == '.') continue;
             printf(">> %s\n", content->d_name);
         }
+        
+
+        
+        
         
     }
 
