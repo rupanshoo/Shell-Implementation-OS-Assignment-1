@@ -10,7 +10,15 @@ int main(int argc, char *argv[]){
         int ans = fgetc(stdin);
         prompt = (char) ans;
         if(prompt == 'Y'){
-            remove(argv[2]);
+            int ss = remove(argv[2]);
+            
+            if(ss == 0){
+            printf("File removed successfully!\n");
+            }
+
+            else{
+                printf("Unsucessful! Pls check file name\n");
+            }
         }
         else{
             printf("File not removed!\n");
@@ -28,8 +36,15 @@ int main(int argc, char *argv[]){
         }
     }
     else{
-        remove(argv[1]);
-        printf("File removed successfully!");
+        int y = remove(argv[1]);
+
+        if(y == 0){
+        printf("File removed successfully!\n");
+        }
+
+        else{
+            printf("Unsucessful! Pls check file name\n");
+        }
     }
     
     return 0;
