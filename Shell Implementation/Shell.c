@@ -26,34 +26,13 @@ int main(){
     int i=0;
     int status;
 
-    /*
-    char *e;
-    e= getenv("myEnv");
-    //printf("e = %s\n",e);
-    int ret = putenv("myEnv=/usr/home/documents/Operating Systems/Assignment 1/");
-    if(ret == -1){
-        perror("putenv");
-        printf("%d",ret);
-    }
-    char *envp[] = {(char*) "myEnv=/Shell Implementation", 0};
-    */
-
 
     while(1){    //infinite loop 
 
         command_prompt();   //indicator to enter your command - to present a prompt
         read_command(command, parameter, hist);
 
-        /*
-        //to check values in parameter
-        for(int k=0; k<20;k++){
-            printf("%s", parameter[k]);
-        }
-        */
-
-       
-
-        
+    
         //INTERNAL COMMANDS
             if(strcmp(command, "cd") ==0){cd(parameter);}            //cd 
             else if(strcmp(command, "exit") == 0){exit(0);}         //exit 
@@ -238,6 +217,10 @@ void cd(char *param[]){
         else{
             printf("\nUnsucessful! Path not changed.\n");
         }
+    }
+
+    else if(strcmp(param[1], ".") == 0){
+        printf("Path - current directory\n");
     }
 
     else{

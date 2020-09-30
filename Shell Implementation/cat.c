@@ -89,8 +89,6 @@ int main(int argc, char* argv[]){
                 if(file_contents[totalRead-1] == '\n'){
                     file_contents[totalRead-1] = '\0';
                 }
-
-                //file_contents[totalRead-1] = file_contents[totalRead-1] == '\n' ? '\0' : file_contents[totalRead-1];  -- shorter for above if condn
                 printf("%s\n", file_contents);
             }
 
@@ -100,6 +98,5 @@ int main(int argc, char* argv[]){
         }
     }
     
-    //printf("in cat");
     return 0;
 } 
