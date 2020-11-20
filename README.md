@@ -2,7 +2,7 @@
 System call and building a shell
 Q1 -> making a system call
 
-##Q2 -> Building a Shell
+## Q2 -> Building a Shell
 Implementing Internal and External System Calls:
 
 Internal Calls implemented-
